@@ -13,7 +13,7 @@ export enum MoveStateDefine {
 
 
 export class MoveState extends BaseState {
-    id: StateDefine.Move
+    id =  StateDefine.Move
 
     private _subMachine: StateMachine<MoveStateDefine> = new StateMachine;
     private _defaultState = MoveStateDefine.Walk;
@@ -65,7 +65,7 @@ export class BaseMoveState implements FSM.IState<MoveStateDefine> {
 }
 
 export class WalkState extends BaseMoveState {
-    id: MoveStateDefine.Walk;
+    id = MoveStateDefine.Walk;
 
     onEnter(): void {
         this.ani.play(this.id)
@@ -73,7 +73,7 @@ export class WalkState extends BaseMoveState {
 }
 
 export class RunState extends BaseMoveState {
-    id: MoveStateDefine.Run;
+    id = MoveStateDefine.Run;
 
     onEnter(): void {
         this.ani.play(this.id)
@@ -81,7 +81,7 @@ export class RunState extends BaseMoveState {
 }
 
 export class DashState extends BaseMoveState {
-    id: MoveStateDefine.Dash;
+    id = MoveStateDefine.Dash;
 
     onEnter(): void {
         this.ani.play(this.id)
@@ -89,7 +89,7 @@ export class DashState extends BaseMoveState {
 }
 
 export class SlideState extends BaseMoveState {
-    id: MoveStateDefine.Slide;
+    id = MoveStateDefine.Slide;
 
     onEnter(): void {
         this.ani.play(this.id)

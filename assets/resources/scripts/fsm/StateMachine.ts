@@ -23,7 +23,7 @@ export class StateMachine<TKey> implements FSM.IState<TKey>, FSM.IStateMachine<T
     }
 
     public canTransitionTo(id: TKey): boolean {
-        return this._transitions.has(id);
+        return true;
     }
 
     public add(state: FSM.IState<TKey>): void {
@@ -37,7 +37,7 @@ export class StateMachine<TKey> implements FSM.IState<TKey>, FSM.IStateMachine<T
     public transitionTo(id: TKey): void {
         if (this.canTransitionTo(id)) {
             this._currentState?.onExit();
-            this._currentState = this._transitions.get(id);
+            this._currentState = this._states.get(id);
             this._currentState?.onEnter();
         }
     }

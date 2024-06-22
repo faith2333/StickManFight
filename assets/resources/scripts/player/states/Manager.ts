@@ -23,6 +23,14 @@ export class StateManager {
     init() {
         this._sm.add(new IdleState(this._ani, this._params))
         this._sm.add(new MoveState(this._ani, this._params))
+        
+        console.log("StateManager init: ",this._sm)
+
+        this._sm.transitionTo(StateDefine.Idle)
+    }
+
+    update(deltaTime: number) {
+        this._sm.update(deltaTime)
     }
 
 }
