@@ -2,7 +2,7 @@
 export enum StateDefine {
     Idle = "idle",
     Move = "move",
-    Attack = "attack",
+    Attack = "combo",
     Death = "death",
     Hit = "hit",
 }

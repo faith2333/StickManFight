@@ -4,6 +4,7 @@ import { StateDefine } from "./Define";
 import { IdleState } from "./IdleState";
 import { MoveState } from "./MoveState";
 import { Parameters } from "./typing";
+import { AttackState } from "./Attackstate";
 
 const DOUBLE_CLICK_THRESHOLD = 500;
 
@@ -16,6 +17,9 @@ export class StateManager {
     private _params: Parameters = null;
     private _walkKeyTimeout: Map<string, any> = new Map();
     private _clickCount: Map<string, number> = new Map();
+
+    private _attackCount: number = 0;
+    private _comboTimeout: any = null;
 
     constructor(ani: Animation, params: Parameters) {
         this._ani = ani;
@@ -50,6 +54,9 @@ export class StateManager {
             case KeyCode.SPACE:
                 this._params.isJumping = true
                 this._sm.transitionTo(StateDefine.Move)
+                break
+            case KeyCode.KEY_J:
+                this.combo()
                 break
         }
     }
@@ -117,9 +124,26 @@ export class StateManager {
         }
     }
 
+    combo() {
+        this._attackCount++
+        if (this._comboTimeout) {
+            clearTimeout(this._comboTimeout)
+            this._comboTimeout = setTimeout(() => {
+                this._attackCount = 0
+                this._comboTimeout = null
+            }, 500)
+        } else {
+            this._comboTimeout = setTimeout(() => {
+                this._attackCount = 0
+                this._comboTimeout = null
+            }, 500)
+        }
+    }
+
     init() {
         this._sm.add(new IdleState(this._ani, this._params))
         this._sm.add(new MoveState(this._ani, this._params))
+        this._sm.add(new AttackState(this._ani, this._params))
         
         this._sm.transitionTo(StateDefine.Idle)
     }
@@ -137,6 +161,21 @@ export class StateManager {
             return
         } else if (!onGround && this._params.isOnGround) {
             this._params.isOnGround = false
+        }
+
+        if (this._attackCount > 0 && this._params.attackCount == 0) {
+            this._params.attackCount = this._attackCount
+            this._sm.transitionTo(StateDefine.Attack)
+            return
+        }
+
+        if (this._attackCount > 0 && this._params.attackCount > 0) {
+            this._params.attackCount = this._attackCount
+        }
+
+        if (this._attackCount == 0 && this._params.attackCount > 0) {
+            this._sm.transitionTo(StateDefine.Idle)
+            return
         }
 
         this._sm.update(deltaTime)

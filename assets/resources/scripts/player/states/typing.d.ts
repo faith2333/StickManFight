@@ -6,6 +6,7 @@ export type Parameters = {
     isDashing: boolean;
     isSliding: boolean;
     isJumping: boolean;
+    attackCount: number;
     direction: number;
     isOnGround: boolean;
 }

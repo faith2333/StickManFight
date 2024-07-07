@@ -31,6 +31,7 @@ export class PlayerController extends Component {
             isRunning: false,
             isSliding: false,
             isOnGround: true,
+            attackCount: 0,
         }
         this._ani = this.node.getChildByName("Hero").getComponent(Animation);
         this._sm = new StateManager(this._ani, this._params);
