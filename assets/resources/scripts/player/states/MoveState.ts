@@ -1,4 +1,4 @@
-import { Animation } from "cc";
+import { Animation, RigidBody2D, Vec2 } from "cc";
 import { StateMachine } from "../../fsm/StateMachine";
 import { BaseState } from "./BaseState";
 import { StateDefine } from "./Define";
@@ -8,6 +8,7 @@ export enum MoveStateDefine {
     Walk = "walk",
     Run = "run",
     Dash = "dash",
+    Jump = "jump",
     Slide = "slide"
 }
 
@@ -25,12 +26,17 @@ export class MoveState extends BaseState {
 
     init() {
         this._subMachine.add(new WalkState(this.ani, this.params))
+        this._subMachine.add(new JumpState(this.ani, this.params))
         this._subMachine.add(new RunState(this.ani, this.params))
         this._subMachine.add(new DashState(this.ani, this.params))
         this._subMachine.add(new SlideState(this.ani, this.params))
     }
 
     onEnter(): void {
+        if (this.params.isJumping) {
+            this._subMachine.transitionTo(MoveStateDefine.Jump)
+            return
+        }
         this._subMachine.transitionTo(this._defaultState)
     }
 
@@ -69,6 +75,19 @@ export class WalkState extends BaseMoveState {
 
     onEnter(): void {
         this.ani.play(this.id)
+        this.ani.node.setScale(this.params.direction, 1, 1)
+    }
+
+    update(deltaTime: number): void {
+        let vl = this.ani.node.getComponent(RigidBody2D).linearVelocity;
+        vl.x = this.params.moveSpeed * this.params.direction;
+        this.ani.node.getComponent(RigidBody2D).linearVelocity = vl;
+    }
+
+    onExit(): void {
+        let vl = this.ani.node.getComponent(RigidBody2D).linearVelocity;
+        vl.x = 0;
+        this.ani.node.getComponent(RigidBody2D).linearVelocity = vl;
     }
 }
 
@@ -85,6 +104,24 @@ export class DashState extends BaseMoveState {
 
     onEnter(): void {
         this.ani.play(this.id)
+    }
+}
+
+export class JumpState extends BaseMoveState {
+    id = MoveStateDefine.Jump;
+
+    onEnter(): void {
+        this.ani.play(this.id)
+        let rigidBody = this.ani.node.getComponent(RigidBody2D)
+        rigidBody.applyLinearImpulseToCenter(new Vec2(0, this.params.jumpForce), true)
+    }
+
+    update(deltaTime: number): void {
+        if (this.params.isMoving) {
+            let vl = this.ani.node.getComponent(RigidBody2D).linearVelocity;
+            vl.x = this.params.moveSpeed * this.params.direction;
+            this.ani.node.getComponent(RigidBody2D).linearVelocity = vl;
+        }
     }
 }
 

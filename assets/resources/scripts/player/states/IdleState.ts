@@ -1,3 +1,4 @@
+import { RigidBody, RigidBody2D } from "cc";
 import { BaseState } from "./BaseState";
 import { StateDefine } from "./Define";
 

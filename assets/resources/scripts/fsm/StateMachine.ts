@@ -38,6 +38,9 @@ export class StateMachine<TKey> implements FSM.IState<TKey>, FSM.IStateMachine<T
         if (this.canTransitionTo(id)) {
             this._currentState?.onExit();
             this._currentState = this._states.get(id);
+            if (!this._currentState) {
+                console.warn(`State with id ${id} does not exist in state machine: `,this.id);
+            }
             this._currentState?.onEnter();
         }
     }
