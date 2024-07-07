@@ -22,7 +22,7 @@ export class PlayerController extends Component {
 
     initState() {
         this._params = {
-            moveSpeed: this.MoveSpeed,
+            moveSpeed: this.MoveSpeed, 
             jumpForce: this.JumpFore,
             isMoving: false,
             isJumping: false,

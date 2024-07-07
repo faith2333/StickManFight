@@ -28,42 +28,22 @@ export class StateManager {
     }
 
     handleKeyDown(event: EventKeyboard) {
-        if (!this._params.isOnGround) {
+        if (!this._params.isOnGround || this._params.isSliding) {
             return
         }
 
         switch (event.keyCode) {
             case KeyCode.KEY_A:
             case KeyCode.ARROW_LEFT:
-                this._params.direction = -1
-                this._params.isMoving = true
-                this._clickCount['left']++
-                if (this._clickCount['left'] === 1) {
-                    this._walkKeyTimeout['left'] = setTimeout(() => {
-                        this._clickCount['left'] = 0
-                    }, DOUBLE_CLICK_THRESHOLD)
-                } else if (this._clickCount['left'] === 2) {
-                    clearTimeout(this._walkKeyTimeout['left'])
-                    this._clickCount['left'] = 0
-                    this._params.isRunning = true
-                }
-                this._sm.transitionTo(StateDefine.Move)
+                this.moveLeft()
                 break
             case KeyCode.KEY_D:
             case KeyCode.ARROW_RIGHT:
-                this._params.direction = 1
-                this._params.isMoving = true
-                this._clickCount['right']++
-                if (this._clickCount['right'] === 1) {
-                    this._walkKeyTimeout['left'] = setTimeout(() => {
-                        this._clickCount['right'] = 0
-                    }, DOUBLE_CLICK_THRESHOLD)
-                } else if (this._clickCount['right'] === 2) {
-                    clearTimeout(this._walkKeyTimeout['left'])
-                    this._clickCount['right'] = 0
-                    this._params.isRunning = true
-                }
-                this._sm.transitionTo(StateDefine.Move)
+                this.moveRight()
+                break
+            case KeyCode.KEY_S:
+            case KeyCode.ARROW_DOWN:
+                this.slide()
                 break
             case KeyCode.KEY_W:
             case KeyCode.ARROW_UP:
@@ -81,10 +61,59 @@ export class StateManager {
             case KeyCode.KEY_D:
             case KeyCode.ARROW_RIGHT:
                 this._params.isMoving = false
-                if (this._params.isOnGround) {
+                if (this._params.isOnGround && !this._params.isSliding) {
                     this._sm.transitionTo(StateDefine.Idle)
                 }
                 break
+        }
+    }
+
+    moveLeft() {
+        this._params.direction = -1
+        this._params.isMoving = true
+        this._clickCount['left']++
+        if (this._clickCount['left'] === 1) {
+            this._walkKeyTimeout['left'] = setTimeout(() => {
+                this._clickCount['left'] = 0
+            }, DOUBLE_CLICK_THRESHOLD)
+        } else if (this._clickCount['left'] === 2) {
+            clearTimeout(this._walkKeyTimeout['left'])
+            this._clickCount['left'] = 0
+            this._params.isRunning = true
+        }
+        this._sm.transitionTo(StateDefine.Move)
+    }
+
+    moveRight() {
+        this._params.direction = 1
+        this._params.isMoving = true
+        this._clickCount['right']++
+        if (this._clickCount['right'] === 1) {
+            this._walkKeyTimeout['left'] = setTimeout(() => {
+                this._clickCount['right'] = 0
+            }, DOUBLE_CLICK_THRESHOLD)
+        } else if (this._clickCount['right'] === 2) {
+            clearTimeout(this._walkKeyTimeout['left'])
+            this._clickCount['right'] = 0
+            this._params.isRunning = true
+        }
+        this._sm.transitionTo(StateDefine.Move)
+    }
+
+    slide() {
+        if (this._params.isRunning) {
+            this._params.isSliding = true
+            this._sm.transitionTo(StateDefine.Move)
+            setTimeout(() => {
+                if (this._params.isSliding) {
+                    this._params.isSliding = false
+                    if (this._params.isMoving) {
+                        this._sm.transitionTo(StateDefine.Move)
+                    } else {
+                        this._sm.transitionTo(StateDefine.Idle)
+                    }
+                }
+            }, 1000)    
         }
     }
 

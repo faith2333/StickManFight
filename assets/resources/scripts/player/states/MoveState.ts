@@ -1,4 +1,4 @@
-import { Animation, RigidBody2D, Vec2 } from "cc";
+import { Animation, RigidBody2D, Vec2, sp } from "cc";
 import { StateMachine } from "../../fsm/StateMachine";
 import { BaseState } from "./BaseState";
 import { StateDefine } from "./Define";
@@ -35,6 +35,10 @@ export class MoveState extends BaseState {
     onEnter(): void {
         if (this.params.isJumping) {
             this._subMachine.transitionTo(MoveStateDefine.Jump)
+            return
+        }
+        if (this.params.isSliding) {
+            this._subMachine.transitionTo(MoveStateDefine.Slide)
             return
         }
         if (this.params.isRunning) {
@@ -135,7 +139,11 @@ export class JumpState extends BaseMoveState {
     update(deltaTime: number): void {
         if (this.params.isMoving) {
             let vl = this.ani.node.getComponent(RigidBody2D).linearVelocity;
-            vl.x = this.params.moveSpeed/4 * this.params.direction;
+            let speed = this.params.moveSpeed/4;
+            if (this.params.isRunning) {
+                speed = this.params.moveSpeed/2;
+            }
+            vl.x = speed * this.params.direction;
             this.ani.node.getComponent(RigidBody2D).linearVelocity = vl;
         }
     }
@@ -146,5 +154,17 @@ export class SlideState extends BaseMoveState {
 
     onEnter(): void {
         this.ani.play(this.id)
+    }
+
+    update(deltaTime: number): void {
+        let vl = this.ani.node.getComponent(RigidBody2D).linearVelocity;
+        vl.x = this.params.moveSpeed/2 * this.params.direction;
+        this.ani.node.getComponent(RigidBody2D).linearVelocity = vl;
+    }
+
+    onExit(): void {
+        let vl = this.ani.node.getComponent(RigidBody2D).linearVelocity;
+        vl.x = 0;
+        this.ani.node.getComponent(RigidBody2D).linearVelocity = vl;
     }
 }
