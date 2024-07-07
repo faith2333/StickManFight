@@ -37,6 +37,10 @@ export class MoveState extends BaseState {
             this._subMachine.transitionTo(MoveStateDefine.Jump)
             return
         }
+        if (this.params.isRunning) {
+            this._subMachine.transitionTo(MoveStateDefine.Run)
+            return
+        }
         this._subMachine.transitionTo(this._defaultState)
     }
 
@@ -80,7 +84,7 @@ export class WalkState extends BaseMoveState {
 
     update(deltaTime: number): void {
         let vl = this.ani.node.getComponent(RigidBody2D).linearVelocity;
-        vl.x = this.params.moveSpeed * this.params.direction;
+        vl.x = this.params.moveSpeed/2 * this.params.direction;
         this.ani.node.getComponent(RigidBody2D).linearVelocity = vl;
     }
 
@@ -96,6 +100,18 @@ export class RunState extends BaseMoveState {
 
     onEnter(): void {
         this.ani.play(this.id)
+    }
+
+    onExit(): void {
+        let vl = this.ani.node.getComponent(RigidBody2D).linearVelocity;
+        vl.x = 0;
+        this.ani.node.getComponent(RigidBody2D).linearVelocity = vl;
+    }
+
+    update(deltaTime: number): void {
+        let vl = this.ani.node.getComponent(RigidBody2D).linearVelocity;
+        vl.x = this.params.moveSpeed * this.params.direction;
+        this.ani.node.getComponent(RigidBody2D).linearVelocity = vl;
     }
 }
 
@@ -119,7 +135,7 @@ export class JumpState extends BaseMoveState {
     update(deltaTime: number): void {
         if (this.params.isMoving) {
             let vl = this.ani.node.getComponent(RigidBody2D).linearVelocity;
-            vl.x = this.params.moveSpeed * this.params.direction;
+            vl.x = this.params.moveSpeed/4 * this.params.direction;
             this.ani.node.getComponent(RigidBody2D).linearVelocity = vl;
         }
     }

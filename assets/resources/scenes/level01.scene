@@ -23,7 +23,7 @@
     "_active": true,
     "_components": [],
     "_prefab": {
-      "__id__": 40
+      "__id__": 48
     },
     "_lpos": {
       "__type__": "cc.Vec3",
@@ -54,7 +54,7 @@
     },
     "autoReleaseAssets": false,
     "_globals": {
-      "__id__": 41
+      "__id__": 49
     },
     "_id": "f0d3954f-9260-4045-b69b-05cf381683d0"
   },
@@ -80,13 +80,13 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 37
+        "__id__": 45
       },
       {
-        "__id__": 38
+        "__id__": 46
       },
       {
-        "__id__": 39
+        "__id__": 47
       }
     ],
     "_prefab": null,
@@ -952,6 +952,27 @@
       },
       {
         "__id__": 35
+      },
+      {
+        "__id__": 37
+      },
+      {
+        "__id__": 39
+      },
+      {
+        "__id__": 40
+      },
+      {
+        "__id__": 41
+      },
+      {
+        "__id__": 42
+      },
+      {
+        "__id__": 43
+      },
+      {
+        "__id__": 44
       }
     ],
     "removedComponents": []
@@ -1074,6 +1095,103 @@
     ]
   },
   {
+    "__type__": "CCPropertyOverrideInfo",
+    "targetInfo": {
+      "__id__": 38
+    },
+    "propertyPath": [
+      "_clips",
+      "length"
+    ],
+    "value": 9
+  },
+  {
+    "__type__": "cc.TargetInfo",
+    "localID": [
+      "f2v3SOM0ZNC4wTtfBBMIRn"
+    ]
+  },
+  {
+    "__type__": "CCPropertyOverrideInfo",
+    "targetInfo": {
+      "__id__": 38
+    },
+    "propertyPath": [
+      "_clips",
+      "4"
+    ],
+    "value": {
+      "__uuid__": "a306ccc3-1bb1-497c-94aa-0ef672f52b9d",
+      "__expectedType__": "cc.AnimationClip"
+    }
+  },
+  {
+    "__type__": "CCPropertyOverrideInfo",
+    "targetInfo": {
+      "__id__": 38
+    },
+    "propertyPath": [
+      "_defaultClip"
+    ],
+    "value": null
+  },
+  {
+    "__type__": "CCPropertyOverrideInfo",
+    "targetInfo": {
+      "__id__": 38
+    },
+    "propertyPath": [
+      "_clips",
+      "5"
+    ],
+    "value": {
+      "__uuid__": "42b41ae8-9477-4c7d-b6ca-5ea14cc31b19",
+      "__expectedType__": "cc.AnimationClip"
+    }
+  },
+  {
+    "__type__": "CCPropertyOverrideInfo",
+    "targetInfo": {
+      "__id__": 38
+    },
+    "propertyPath": [
+      "_clips",
+      "6"
+    ],
+    "value": {
+      "__uuid__": "14b4f718-c5d0-4daa-8745-ee4256ad5184",
+      "__expectedType__": "cc.AnimationClip"
+    }
+  },
+  {
+    "__type__": "CCPropertyOverrideInfo",
+    "targetInfo": {
+      "__id__": 38
+    },
+    "propertyPath": [
+      "_clips",
+      "7"
+    ],
+    "value": {
+      "__uuid__": "7c139d52-9c6d-4180-95d9-0d9e2b1a15a0",
+      "__expectedType__": "cc.AnimationClip"
+    }
+  },
+  {
+    "__type__": "CCPropertyOverrideInfo",
+    "targetInfo": {
+      "__id__": 38
+    },
+    "propertyPath": [
+      "_clips",
+      "8"
+    ],
+    "value": {
+      "__uuid__": "bc3f4fa3-3e18-48f1-bc9d-43dbaebe3de8",
+      "__expectedType__": "cc.AnimationClip"
+    }
+  },
+  {
     "__type__": "cc.UITransform",
     "_name": "",
     "_objFlags": 0,
@@ -1157,28 +1275,28 @@
   {
     "__type__": "cc.SceneGlobals",
     "ambient": {
-      "__id__": 42
+      "__id__": 50
     },
     "shadows": {
-      "__id__": 43
+      "__id__": 51
     },
     "_skybox": {
-      "__id__": 44
+      "__id__": 52
     },
     "fog": {
-      "__id__": 45
+      "__id__": 53
     },
     "octree": {
-      "__id__": 46
+      "__id__": 54
     },
     "skin": {
-      "__id__": 47
+      "__id__": 55
     },
     "lightProbeInfo": {
-      "__id__": 48
+      "__id__": 56
     },
     "postSettings": {
-      "__id__": 49
+      "__id__": 57
     },
     "bakedWithStationaryMainLight": false,
     "bakedWithHighpLightmap": false
