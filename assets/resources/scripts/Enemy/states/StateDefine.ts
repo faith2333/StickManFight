@@ -4,4 +4,6 @@ export enum EnemyStateDefine {
     Walk = 'walk',
     Attack = 'attack',
     Hit = 'hit',
+    Pursuit = 'pursuit',
+    Run = 'run',
 }

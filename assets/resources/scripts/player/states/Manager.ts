@@ -5,6 +5,7 @@ import { IdleState } from "./IdleState";
 import { MoveState } from "./MoveState";
 import { Parameters } from "./typing";
 import { AttackState } from "./Attackstate";
+import { HitState } from "./HitState";
 
 const DOUBLE_CLICK_THRESHOLD = 500;
 
@@ -144,6 +145,7 @@ export class StateManager {
         this._sm.add(new IdleState(this._ani, this._params))
         this._sm.add(new MoveState(this._ani, this._params))
         this._sm.add(new AttackState(this._ani, this._params))
+        this._sm.add(new HitState(this._ani, this._params))
         
         this._sm.transitionTo(StateDefine.Idle)
     }
@@ -190,7 +192,12 @@ export class StateManager {
         try {
             const result = PhysicsSystem2D.instance.raycast(rayOrigin, rayEnd, ERaycast2DType.Closest);
             if (result && result.length > 0) {
-                return true
+                for (const res of result) {
+                    if (res.collider.tag === 2) {
+                        return true
+                    }
+                }
+                return false
             } else {
                 return false
             }

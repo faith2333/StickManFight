@@ -17,6 +17,7 @@ export class EnemyConntroller extends Component {
             moveSpeed: this.MoveSpeed,
             direction: -1,
             targetPosition: [],
+            pursuitPosition: null,
             stateMachine: null,
             partolPos: [
                 new Vec3(200, 580, 0),

@@ -1,17 +1,19 @@
 import { BaseState } from "./BaseState";
-import { EnemyStateDefine } from "./StateDefine";
+import { StateDefine } from "./Define";
 
 
 export class HitState extends BaseState {
-    id = EnemyStateDefine.Hit;
-    
+    id = StateDefine.Hit;
+
     onEnter(): void {
         this.ani.play(this.id);
     }
 
-    onExit() {
+    onExit(): void {
         
     }
 
-    update(deltaTime: number): void {}
+    update(deltaTime: number): void {
+     
+    }
 }

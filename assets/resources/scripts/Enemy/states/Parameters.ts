@@ -7,6 +7,7 @@ export type Parameters = {
     moveSpeed: number;
     direction: number;
     targetPosition: Vec3[];
+    pursuitPosition: Vec3;
     stateMachine: StateMachine<EnemyStateDefine>;
     partolPos: Vec3[];
 }

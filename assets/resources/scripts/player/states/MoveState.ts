@@ -133,7 +133,7 @@ export class JumpState extends BaseMoveState {
     onEnter(): void {
         this.ani.play(this.id)
         let rigidBody = this.ani.node.getComponent(RigidBody2D)
-        rigidBody.applyLinearImpulseToCenter(new Vec2(0, this.params.jumpForce*2), true)
+        rigidBody.applyLinearImpulseToCenter(new Vec2(0, this.params.jumpForce*3), true)
     }
 
     update(deltaTime: number): void {

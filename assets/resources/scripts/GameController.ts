@@ -4,7 +4,7 @@ const { ccclass, property } = _decorator;
 @ccclass('GameController')
 export class GameController extends Component {
     start() {
-        this.debug();
+        // this.debug();
     }
 
     update(deltaTime: number) {

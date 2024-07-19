@@ -32,7 +32,7 @@ export class WalkState extends BaseState {
 
         const rigidBody = this.ani.node.getComponent(RigidBody2D);
         let lv = rigidBody.linearVelocity;
-        lv.x = this.params.moveSpeed * this.params.direction * -1;
+        lv.x = this.params.moveSpeed * this.params.direction * -0.8;
         rigidBody.linearVelocity = lv;
     }
 }

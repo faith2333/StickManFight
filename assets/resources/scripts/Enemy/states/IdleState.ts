@@ -10,7 +10,6 @@ export class IdleState extends BaseState {
     onEnter() {
         this.ani.play(this.id);
         this._timeout = setTimeout(() => {
-            // 完善巡逻点的处理
             if (this.params.targetPosition.length == 0) {
                 this.params.targetPosition = [...this.params.partolPos];
             }
@@ -25,7 +24,6 @@ export class IdleState extends BaseState {
                 this.params.direction = -1;
             }
 
-            console.log("IdleState -> WalkState", this.params);
             this.params.stateMachine.transitionTo(EnemyStateDefine.Walk);
         }, 3000);
     }
